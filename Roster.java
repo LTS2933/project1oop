@@ -51,18 +51,109 @@ public class Roster {
     }
 
     public void print(){
+        if (this.size == 0){
+            System.out.println("Student roster is empty!");
+            return;
+        }
+        for (int i = 0; i<this.size-1; i++){
+            Profile minProfile = this.roster[i].getProfile();
+            int minIndex = i;
+            for (int j = i+1; j<this.size; j++){
+                Profile currProfile = this.roster[i].getProfile();
+                if (currProfile.compareTo(minProfile) < 0){
+                    minProfile = currProfile;
+                    minIndex = j;
+                }
+            }
+            Student minStudent = this.roster[minIndex];
+
+            Student temp = minStudent;
+            this.roster[minIndex] = this.roster[i];
+            this.roster[i] = temp;
+        }
+        System.out.println("* Student roster sorted by last name, first name, and DOB **");
+        for (int i = 0; i<this.size; i++){
+            System.out.println(this.roster[i].toString());
+        }
+        System.out.println("* end of roster **");
         
     }
 
     public void printBySchoolMajor(){
-
+        if (this.size == 0){
+            System.out.println("Student roster is empty!");
+            return;
+        }
+        int minIndex = 0;
+        for (Major major: Major.values()){
+            for (int i = minIndex; i<this.size; i++){
+                Student currStudent = this.roster[i];
+                Major studentMajor = currStudent.getMajor();
+                if (studentMajor == major){
+                    Student temp = this.roster[minIndex];
+                    this.roster[minIndex] = currStudent;
+                    this.roster[i] = temp;
+                    minIndex++;
+                }
+            }
+        }
+        System.out.println("* Student roster sorted by school, major **");
+        for (int i = 0; i<this.size; i++){
+            System.out.println(roster[i].toString());
+        }
+        System.out.println("* end of roster **");
     }
 
     public void printByStanding(){
+        if (this.size == 0){
+            System.out.println("Student roster is empty!");
+            return;
+        }
+        for (int i = 0; i<this.size-1; i++){
+            int minCredits = this.roster[i].getCredits();
+            int minIndex = i;
+            for (int j = i+1; j<this.size; j++){
+                Student currStudent = this.roster[j];
+                if (currStudent.getCredits() < minCredits){
+                    minCredits = currStudent.getCredits();
+                    minIndex = j;
+                }
+            }
+            Student newMinimum = this.roster[minIndex];
 
+            Student temp = newMinimum;
+            this.roster[minIndex] = this.roster[i];
+            this.roster[i] = temp;
+        }
+        System.out.println("* Student roster sorted by standing **");
+        for (int i = 0; i<this.size; i++){
+            System.out.println(this.roster[i].toString());
+        }
+        System.out.println("* end of roster **");
+    }
+
+    public void printBySchool(String string){
+        if (this.size == 0){
+            System.out.println("Student roster is empty!");
+            return;
+        }
+        System.out.println("* Students in " + string + " **");
+        String school = string.toUpperCase();
+        for (int i = 0; i<this.size; i++){
+            Student currStudent = this.roster[i];
+            Major currMajor = currStudent.getMajor();
+            if (school.equals(currMajor.getSchoolName())) System.out.println(currStudent.toString());
+        }
+        System.out.println("* end of roster **");
+    }
+    
+    public void changeMajor(Student student, Major major){
+        int indexOfStudent = find(student);
+        this.roster[indexOfStudent].setMajor(major);
     }
 
     public static void main (String [] args){
+
         
 
     }

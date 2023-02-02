@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class Profile implements Comparable<Profile>{
     private String fname;
     private String lname;
@@ -28,7 +26,9 @@ public class Profile implements Comparable<Profile>{
         str += " | DOB: " + this.dob;
         return str;
     }
-    @Override
+
+
+    /*@Override
     public boolean equals(Object obj){
         if (obj instanceof Profile) {
             Profile pr = (Profile) obj;
@@ -48,11 +48,30 @@ public class Profile implements Comparable<Profile>{
             }
         }
         return false;
+    }/* */
+
+    @Override
+    public boolean equals(Object obj){
+        Profile compare = null;
+        if (obj instanceof Profile){
+            compare = (Profile) obj;
+        }
+        boolean firstNameEquals = this.fname.toLowerCase().equals(compare.fname.toLowerCase());
+        boolean lastNameEquals = this.lname.toLowerCase().equals(compare.lname.toLowerCase());
+        boolean dateEquals = this.dob.equals(compare.dob);
+
+        return (firstNameEquals & lastNameEquals & dateEquals);
     }
 
 
     @Override
     public int compareTo(Profile pr) {
         return 0;
+    }
+
+    public static void main (String [] args){
+        Profile first = new Profile("John", "Doe", new Date("1/2/2003"));
+        Profile second = new Profile("John", "Doe", new Date("1/4/2003"));
+        System.out.println(first.equals(second));
     }
 }

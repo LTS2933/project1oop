@@ -18,6 +18,23 @@ public class Student implements Comparable<Student>{
         this.major = st.major;
         this.creditsCompleted = st.creditsCompleted;
     }
+
+    public Profile getProfile(){
+        return this.profile;
+    }
+
+    public Major getMajor(){
+        return this.major;
+    }
+
+    public void setMajor(Major major){
+        this.major = major;
+    }
+
+    public int getCredits(){
+        return this.creditsCompleted;
+    }
+
     @Override
     public String toString(){
         String str = "";
@@ -28,13 +45,25 @@ public class Student implements Comparable<Student>{
     }
     @Override
     public boolean equals(Object obj) {
+        Student st = null;
         if (obj instanceof Student) {
-            Student st = (Student) obj;
+            st = (Student) obj;
         }
-        return (this.profile == st.profile);
+        return (this.profile.equals(st.getProfile()));
     }
     @Override
     public int compareTo(Student st) {
         return 0;
+    }
+
+    public static void main (String [] args){
+        Profile first = new Profile("Chritian", "Osma", new Date("9/24/2002"));
+        Profile second = new Profile("Christian", "Osma", new Date("9/24/2005"));
+
+        Student test1 = new Student(first, Major.CS, 32);
+        Student test2 = new Student(second, Major.BAIT, 100);
+    
+        System.out.println(test1.equals(test2));
+
     }
 }
