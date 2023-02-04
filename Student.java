@@ -37,10 +37,14 @@ public class Student implements Comparable<Student>{
 
     @Override
     public String toString(){
-        String str = "";
-        str += profile.toString();
-        str += major.toString();
-        str += " Number of credits completed: " + creditsCompleted;
+        String str = profile.toString();
+        str =  str + " (" + major.getMajorCode() + " " + major + " " + major.getSchoolName() + ") ";
+        str = str + "credits completed : " + creditsCompleted;
+        String year = "Senior";
+        if (this.creditsCompleted < 30) year = "Freshman";
+        else if (this.creditsCompleted < 60) year = "Sophomore";
+        else if (this.creditsCompleted < 90) year = "Junior";
+        str += " (" + year + ")";
         return str;
     }
     @Override
@@ -53,17 +57,10 @@ public class Student implements Comparable<Student>{
     }
     @Override
     public int compareTo(Student st) {
-        return 0;
+        return this.profile.compareTo(st.profile);
     }
 
     public static void main (String [] args){
-        Profile first = new Profile("Chritian", "Osma", new Date("9/24/2002"));
-        Profile second = new Profile("Christian", "Osma", new Date("9/24/2005"));
-
-        Student test1 = new Student(first, Major.CS, 32);
-        Student test2 = new Student(second, Major.BAIT, 100);
-    
-        System.out.println(test1.equals(test2));
 
     }
 }

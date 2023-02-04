@@ -1,55 +1,62 @@
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ This class reads standard input from the user and executes, processes
+ the commands, and then displays results to user in standard output
+ @author Christian Osma, Liam Smith
+ */
 public class RosterManager { 
     
     private Scanner sc;
     private Roster roster;
 
+    /**
+     Initializes sc to a new Scanner that takes standard input from user.
+     Initializes roster to a new Roster object with an initla capacity of 4.
+     */
     public RosterManager(){
         this.sc = new Scanner(System.in);
         this.roster = new Roster();
     }
 
+    /**
+     Continuously reads input from the user and executes commands until
+     the user quits or exits out of the program.
+     */
     public void run(){
-        System.out.println("Roster manager running ...");
+        System.out.println("Roster manager running...");
         System.out.println();
         boolean running = true;
         while (running){
             String line = sc.nextLine();
             StringTokenizer st = new StringTokenizer(line);
             if (st.countTokens() == 0) {
-                // continue to next iteration
+                // continue to the next iteration
                 continue;
             }
-
-            String firstOperating = st.nextToken();
-            switch(firstOperating){
+            String firstOperation = st.nextToken();
+            switch(firstOperation){
                 case "A":
                     handleAddStudent(st);
                     break;
                 case "R": 
-                    // call remove student function
                     handleRemoveStudent(st);
                     break;
                 case "P":
-                    // call display student function
                     roster.print();
                     break;
                 case "PS":
-                    // call display student function sort by standing
                     roster.printByStanding();
                     break;
                 case "PC":
-                    // call display student function sort by school and major
                     roster.printBySchoolMajor();
                     break;
                 case "L":
-                    // call list student function depending on school
                     handleListStudent(st.nextToken());
                     break;
                 case "C":
-                    // call change student major function
                     handleChangeMajor(st);
                     break;
                 case "Q":
@@ -57,11 +64,17 @@ public class RosterManager {
                     running = false;
                     break;
                 default: 
-                    System.out.println(firstOperating + " is an invalid command!");
+                    System.out.println(firstOperation + " is an invalid command!");
             } 
         }
     }
 
+    /**
+     Changes student major given the rest of the command from the user. 
+     Prints out error if major is invalid or if the student is not in the roster
+     and success message if major was successfully changed
+     @param st : StringTokenizer that contains the rest of the user command
+     */
     private void handleChangeMajor(StringTokenizer st){
         String firstName = st.nextToken();
         String lastName = st.nextToken();
@@ -89,6 +102,12 @@ public class RosterManager {
         this.roster.changeMajor(student, major);
     }
 
+    /**
+     Adds student to the Roster given the rest of the user input. Returns
+     error if date is invalid, student is less than 16 years old, credits is 
+     invalid, major is invalid, or the student is already in the roster.
+     @param st : StringTokenizer that contains the rest of user input
+    */
     private void handleAddStudent(StringTokenizer st){
        String firstName = st.nextToken();
        String lastName = st.nextToken();
@@ -104,8 +123,16 @@ public class RosterManager {
        }
 
        // check if dob is today or in the future
+       if (isBeforeCurrent(date) == false){
+            System.out.println("DOB invalid: " + stringDate + " is today or in the future!");
+            return;
+       }
 
        // check if student is less than 16 
+       if (date.getAge() < 16){
+            System.out.println("DOB invalid: " + stringDate + " younger than 16 years old.");
+            return;
+       }
 
        if (major == null){
             System.out.println("Major code invalid: " + requestedMajor);
@@ -115,7 +142,7 @@ public class RosterManager {
        int credits = 0;
        try { 
             credits = Integer.parseInt(st.nextToken());
-       } catch (Exception e){
+       } catch (Exception e) {
             System.out.println("Credits completed invalid: not an integer!");
             return;
        }
@@ -126,15 +153,20 @@ public class RosterManager {
 
         Student student = new Student(new Profile(firstName, lastName, date), major, credits);
         if (this.roster.contains(student) == true){
-            System.out.println(firstName + " " + lastName + " " + stringDate + " is already in the roster");
+            System.out.println(firstName + " " + lastName + " " + stringDate + " is already in the roster.");
             return;
         }
 
         this.roster.add(student);
-        System.out.println(firstName + " " + lastName + " " + stringDate + " added to the roster");
+        System.out.println(firstName + " " + lastName + " " + stringDate + " added to the roster.");
 
     }
 
+    /**
+     Removes student from the Roster unless they are not in the roster. 
+     Prints out error or success message.
+     @param st : StringTokenizer that contains the rest of the user input
+    */
     private void handleRemoveStudent(StringTokenizer st){
         String firstName = st.nextToken();
         String lastName = st.nextToken();
@@ -143,15 +175,20 @@ public class RosterManager {
 
         Student student = new Student(new Profile(firstName, lastName, date), Major.CS, 106);
         if (this.roster.contains(student) == false){
-            System.out.println(firstName + " " + lastName + " " + stringDate + " is not in the roster");
+            System.out.println(firstName + " " + lastName + " " + stringDate + " is not in the roster.");
             return;
         }
 
         this.roster.remove(student);
-        System.out.println(firstName + " " + lastName + " " + stringDate + " removed from the roster");
+        System.out.println(firstName + " " + lastName + " " + stringDate + " removed from the roster.");
 
     }
 
+    /**
+     Method takes string representation of a school and calls 
+     roster method that lists students based on that school
+     @param string : a string representation of the school
+    */
     private void handleListStudent(String string){
         if (string.equals("")){
             System.out.println("Please enter a school name: ");
@@ -169,7 +206,13 @@ public class RosterManager {
         this.roster.printBySchool(string);
     }
 
-    public static Major getMajor(String major){
+    /**
+     Takes String input and returns its equivalent value in the 
+     enum Major class.
+     @param major : String representation of the inputed major
+     @return returns object from Major class depending on input
+     */
+    private Major getMajor(String major){
         switch(major){
             case "BAIT":
                 return Major.BAIT;
@@ -184,6 +227,24 @@ public class RosterManager {
             default:
                 return null;
         }
+    }
+
+    /**
+     Takes in a student's date of birth and returns true if the student
+     was born before present and false otherwise
+     @param dob : student's date of birth
+     @return true if student was born before present day
+     */
+    private boolean isBeforeCurrent(Date dob){
+        Calendar current = Calendar.getInstance();
+        int currentDay = current.get(Calendar.DAY_OF_MONTH);
+        int currentMonth = current.get(Calendar.MONTH);
+        int currentYear = current.get(Calendar.YEAR);
+
+        int compare = dob.compareTo(new Date(currentDay, currentMonth, currentYear));
+
+        if (compare < 0) return true;
+        return false;
     }
 
     public static void main (String [] args){

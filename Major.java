@@ -22,9 +22,7 @@ public enum Major {
         }
 
         public static void main (String [] args){
-            for (Major major: Major.values()){
-                System.out.println(major + ", " + major.getSchoolName());
-            }
+            
         }
         
 }

@@ -20,10 +20,7 @@ public class Profile implements Comparable<Profile>{
     }
     @Override
     public String toString(){
-        String str = "";
-        str += "First name: " + this.fname;
-        str += " | Last name: " + this.lname;
-        str += " | DOB: " + this.dob;
+        String str = fname + " " + lname + " " + dob.toString();
         return str;
     }
 
@@ -66,12 +63,21 @@ public class Profile implements Comparable<Profile>{
 
     @Override
     public int compareTo(Profile pr) {
-        return 0;
+        int lastNameCompare = this.lname.compareTo(pr.lname);
+        if (lastNameCompare < 0) return -1;
+        
+        int firstNameCompare = this.fname.compareTo(pr.fname);
+        if (lastNameCompare == 0 && firstNameCompare < 0 ) return -1;
+
+        int dateCompare = this.dob.compareTo(pr.dob);
+        if (lastNameCompare == 0 && firstNameCompare == 0 && dateCompare < 0) return -1;
+
+        if (lastNameCompare + firstNameCompare + dateCompare == 0) return 0;
+
+        return 1;
     }
 
     public static void main (String [] args){
-        Profile first = new Profile("John", "Doe", new Date("1/2/2003"));
-        Profile second = new Profile("John", "Doe", new Date("1/4/2003"));
-        System.out.println(first.equals(second));
+        
     }
 }
