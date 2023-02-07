@@ -1,3 +1,9 @@
+/**
+ * This class implements the Comparable Interface and runs various methods on Student objects.
+ * Students can be sorted by standing through this Class using the compareTo() method.
+ *
+ * @author Christian Osma, Liam Smith
+ **/
 public class Student implements Comparable<Student>{
     private Profile profile;
     private Major major;
