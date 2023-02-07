@@ -1,3 +1,9 @@
+/**
+ * This class is an Enum Class which denotes the different types of Majors and the schools
+ * to which they belong.
+ *
+ * @author Christian Osma, Liam Smith
+ **/
 public enum Major {
         BAIT("33:136", "RBS"),
         CS("01:198", "SAS"),
