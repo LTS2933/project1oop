@@ -1,52 +1,62 @@
+/**
+ * This class implements the Comparable Interface and runs various methods on Profile objects.
+ * Profiles need to be compared against each other in order to be sorted.
+ * Attributes of a profile include first name, last name, and DOB.
+ *
+ * @author Christian Osma, Liam Smith
+ **/
 public class Profile implements Comparable<Profile>{
-    private String fname;
     private String lname;
+    private String fname;
     private Date dob;
 
+    /**
+    Default constructor. Instantiates a new Profile object with fname = "Jane", lname = "Doe" and a new Date object
+    that corresponds to today's dare.
+     */
     public Profile(){
         fname = "Jane";
         lname = "Doe";
         dob = new Date();
     }
+
+    /**
+    Overloaded constructor. Takes 3 arguments and uses them to populate the current Profile object.
+    @param String fname - populates the first name of the object, String lname - populates the last name
+    of the object, Date dob - Date object that serves as the date of birth for the current Profile
+     */
     public Profile(String fname, String lname, Date dob){
         this.fname = fname;
         this.lname = lname;
         this.dob = dob;
     }
+
+    /**
+    Copy constructor. Copies the information of the argument and stores its variables within
+    the corresponding instance variables of the current Profile object.
+    @param Profile pr which contains the information we wish to copy to the current Profile object
+     */
     public Profile(Profile pr){
         this.fname = pr.fname;
         this.lname = pr.lname;
         this.dob = pr.dob;
     }
+
+    /**
+    Converts the current Profile object to a String.
+    @return String which corresponds to a worded version of the Profile, such as "John Doe 3/20/2003"
+     */
     @Override
     public String toString(){
         String str = fname + " " + lname + " " + dob.toString();
         return str;
     }
 
-
-    /*@Override
-    public boolean equals(Object obj){
-        if (obj instanceof Profile) {
-            Profile pr = (Profile) obj;
-            if (this.fname.length() != pr.fname.length() || this.lname.length() != pr.lname.length()){
-                return false;
-            }
-            for (int i = 0; i < this.fname.length(); i++) {
-                if (this.fname.charAt(i) == pr.fname.charAt(i)) {
-                    for (int j = 0; j < this.lname.length(); j++) {
-                        if (this.lname.charAt(j) == pr.lname.charAt(j)) {
-                            if (this.dob.compareTo(pr.dob) == 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }/* */
-
+    /**
+    Check if a Profile is equal to another Profile object.
+    @param Object obj - must be an instance of a Profile object to be compared against current Profile object
+    @return true if the 2 Profiles are the same, false otherwise
+     */
     @Override
     public boolean equals(Object obj){
         Profile compare = null;
@@ -60,7 +70,12 @@ public class Profile implements Comparable<Profile>{
         return (firstNameEquals & lastNameEquals & dateEquals);
     }
 
-
+    /**
+    Helps to sort Profiles based on last name, first name, and date of birth.
+    @param Profile pr which will be used to compare against current Profile object.
+    @return -1 if the current Profile should take priority over Profile pr, 0 if they are equal, and 1 if pr
+    should take priority in the sorting order.
+     */
     @Override
     public int compareTo(Profile pr) {
         int lastNameCompare = this.lname.compareTo(pr.lname);
@@ -77,7 +92,4 @@ public class Profile implements Comparable<Profile>{
         return 1;
     }
 
-    public static void main (String [] args){
-        
-    }
 }

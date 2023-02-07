@@ -1,4 +1,3 @@
-import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -22,20 +21,25 @@ public class RosterManager {
     }
 
     /**
-     Continuously reads input from the user and executes commands until
-     the user quits or exits out of the program.
+     Starts roster manager and calls the method loop() which 
+     takes user input.
      */
     public void run(){
-        System.out.println("Roster manager running...");
+        System.out.println("Roster Manager running...");
         System.out.println();
+        loop();
+    }
+
+    /**
+     Creates a loop that continues to take user commands and
+     execute them until the user exits the program.
+    */
+    private void loop(){
         boolean running = true;
         while (running){
             String line = sc.nextLine();
             StringTokenizer st = new StringTokenizer(line);
-            if (st.countTokens() == 0) {
-                // continue to the next iteration
-                continue;
-            }
+            if (st.countTokens() == 0)  continue; 
             String firstOperation = st.nextToken();
             switch(firstOperation){
                 case "A":
@@ -60,7 +64,7 @@ public class RosterManager {
                     handleChangeMajor(st);
                     break;
                 case "Q":
-                    System.out.println("Roster manager terminated.");
+                    System.out.println("Roster Manager terminated.");
                     running = false;
                     break;
                 default: 
@@ -68,7 +72,7 @@ public class RosterManager {
             } 
         }
     }
-
+ 
     /**
      Changes student major given the rest of the command from the user. 
      Prints out error if major is invalid or if the student is not in the roster
@@ -186,7 +190,8 @@ public class RosterManager {
 
     /**
      Method takes string representation of a school and calls 
-     roster method that lists students based on that school
+     roster method that returns lists of students belonging
+     to that school, then prints it out to Standard Output.
      @param string : a string representation of the school
     */
     private void handleListStudent(String string){
@@ -203,7 +208,12 @@ public class RosterManager {
             System.out.println("School doesn't exist: " + string);
             return;
         }
-        this.roster.printBySchool(string);
+        Student [] array = this.roster.getBySchool(school);
+        System.out.println("* Students in " + string + " *");
+        for (int i = 0; i<array.length; i++){
+            System.out.println(array[i].toString());
+        }
+        System.out.println("* end of list **");
     }
 
     /**
@@ -236,12 +246,8 @@ public class RosterManager {
      @return true if student was born before present day
      */
     private boolean isBeforeCurrent(Date dob){
-        Calendar current = Calendar.getInstance();
-        int currentDay = current.get(Calendar.DAY_OF_MONTH);
-        int currentMonth = current.get(Calendar.MONTH);
-        int currentYear = current.get(Calendar.YEAR);
-
-        int compare = dob.compareTo(new Date(currentDay, currentMonth, currentYear));
+        Date currentDate = new Date();
+        int compare = dob.compareTo(currentDate);
 
         if (compare < 0) return true;
         return false;

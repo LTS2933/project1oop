@@ -5,7 +5,7 @@
  @author: Christian Osma, Liam Smith
 */
 public class Roster {
-    private final static int NOT_FOUND = -1;
+    private static final int NOT_FOUND = -1;
 
     private Student [] roster;
     private int size;
@@ -110,7 +110,7 @@ public class Roster {
             this.roster[minIndex] = this.roster[i];
             this.roster[i] = temp;
         }
-        System.out.println("* Student roster sorted by last name, first name, and DOB **");
+        System.out.println("* Student roster sorted by last name, first name, DOB **");
         for (int i = 0; i<this.size; i++){
             System.out.println(this.roster[i].toString());
         }
@@ -185,14 +185,14 @@ public class Roster {
     }
 
     /**
-     Prints to standard output the students that belong to 
-     the school given to the method.
+     Returns a list of students that attend the corresponding
+     school passed into the method, sorted by Profile.
      @param string : String representation of the school
     */
-    public void printBySchool(String string){
+    public Student [] getBySchool(String string){
         if (this.size == 0){
             System.out.println("Student roster is empty!");
-            return;
+            return null;
         }
         int schoolSize = 0;
         String school = string.toUpperCase();
@@ -220,11 +220,7 @@ public class Roster {
             array[minIndex] = array[i];
             array[i] = temp;
         }
-        System.out.println("* Students in " + string + " **");
-        for (int i = 0; i<schoolSize; i++){
-            System.out.println(array[i].toString());
-        }
-        System.out.println("* end of roster **");
+        return array;
     }
     
     /**
@@ -238,7 +234,4 @@ public class Roster {
         this.roster[indexOfStudent].setMajor(major);
     }
 
-    public static void main (String [] args){
-
-    }
 }
