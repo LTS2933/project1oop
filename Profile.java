@@ -1,3 +1,10 @@
+/**
+ * This class implements the Comparable Interface and runs various methods on Profile objects.
+ * Profiles need to be compared against each other in order to be sorted.
+ * Attributes of a profile include first name, last name, and DOB.
+ *
+ * @author Christian Osma, Liam Smith
+ **/
 public class Profile implements Comparable<Profile>{
     private String fname;
     private String lname;
