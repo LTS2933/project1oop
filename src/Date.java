@@ -8,9 +8,9 @@ import java.util.Calendar;
  * @author Christian Osma, Liam Smith
  **/
 public class Date implements Comparable<Date>{
-    public static final int QUADRENNIAL = 4;
-    public static final int CENTENNIAL = 100;
-    public static final int QUATERCENTENNIAL = 400;
+    public static final int QUADRENNIAL = 4; // constant
+    public static final int CENTENNIAL = 100; // constant
+    public static final int QUARTERCENTENNIAL = 400; // constant
 
     private int year;
     private int month;
@@ -33,7 +33,7 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-     Overloaded constructor. Instantiates new Date object based on date passed.
+     Overloaded constructor, instantiates new Date object based on date passed.
      @param string - String formatted like "2/24/2003", instantiates a Date object from this String.
      */
     public Date(String string){
@@ -108,7 +108,7 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-     Compares the current day (through Calendar import package) with whatever Date object is calling the method
+     Compares the current day (through Calendar import package) with whatever Date object is calling the method and return's the age of the Student.
      @return int corresponding to the Date object's age in years.
      */
     public int getAge(){
@@ -144,7 +144,7 @@ public class Date implements Comparable<Date>{
                 if (this.day == 29){
                     if (this.year % QUADRENNIAL ==0){
                         if (this.year % CENTENNIAL == 0){
-                            if (this.year % QUATERCENTENNIAL == 0){
+                            if (this.year % QUARTERCENTENNIAL == 0){
                                 return true;
                             }
                             else {

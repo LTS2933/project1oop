@@ -25,7 +25,6 @@ public class Student implements Comparable<Student>{
      @param profile Profile of the student including last name, first name, and dob
      @param major Major of the current student
      @param creditsCompleted number of credits the current student has completed
-     Major attribute, an enum, int creditsCompleted - number of credits the Student has completed in school
      */
     public Student(Profile profile, Major major, int creditsCompleted){
         this.profile = profile;

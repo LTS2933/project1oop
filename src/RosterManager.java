@@ -13,8 +13,7 @@ public class RosterManager {
     private Roster roster;
 
     /**
-     Initializes sc to a new Scanner that takes standard input from user.
-     Initializes roster to a new Roster object with an initla capacity of 4.
+     Initializes sc to a new Scanner that takes standard input from user and roster to a new Roster object with an initial capacity of 4.
      */
     public RosterManager(){
         this.sc = new Scanner(System.in);

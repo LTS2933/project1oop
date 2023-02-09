@@ -13,7 +13,7 @@ public class Profile implements Comparable<Profile>{
 
     /**
      Default constructor. Instantiates a new Profile object with fname = "Jane", lname = "Doe" and a new Date object
-     that corresponds to today's dare.
+     that corresponds to today's date.
      */
     public Profile(){
         fname = "Jane";
@@ -23,7 +23,7 @@ public class Profile implements Comparable<Profile>{
 
     /**
      Overloaded constructor. Takes 3 arguments and uses them to populate the current Profile object.
-     @param fname - populates the first name of the object Date dob - Date object that serves as the date of birth for the current Profile
+     @param fname - populates the first name of the object
      @param lname - populates the last name of the object
      @param dob - Date object that serves as the date of birth for the current Profile
      */
