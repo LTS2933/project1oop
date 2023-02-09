@@ -1,3 +1,4 @@
+package src;
 /**
  * This class implements the Comparable Interface and runs various methods on Profile objects.
  * Profiles need to be compared against each other in order to be sorted.
@@ -11,8 +12,8 @@ public class Profile implements Comparable<Profile>{
     private Date dob;
 
     /**
-    Default constructor. Instantiates a new Profile object with fname = "Jane", lname = "Doe" and a new Date object
-    that corresponds to today's dare.
+     Default constructor. Instantiates a new Profile object with fname = "Jane", lname = "Doe" and a new Date object
+     that corresponds to today's dare.
      */
     public Profile(){
         fname = "Jane";
@@ -21,9 +22,10 @@ public class Profile implements Comparable<Profile>{
     }
 
     /**
-    Overloaded constructor. Takes 3 arguments and uses them to populate the current Profile object.
-    @param String fname - populates the first name of the object, String lname - populates the last name
-    of the object, Date dob - Date object that serves as the date of birth for the current Profile
+     Overloaded constructor. Takes 3 arguments and uses them to populate the current Profile object.
+     @param fname - populates the first name of the object Date dob - Date object that serves as the date of birth for the current Profile
+     @param lname - populates the last name of the object
+     @param dob - Date object that serves as the date of birth for the current Profile
      */
     public Profile(String fname, String lname, Date dob){
         this.fname = fname;
@@ -32,9 +34,9 @@ public class Profile implements Comparable<Profile>{
     }
 
     /**
-    Copy constructor. Copies the information of the argument and stores its variables within
-    the corresponding instance variables of the current Profile object.
-    @param Profile pr which contains the information we wish to copy to the current Profile object
+     Copy constructor. Copies the information of the argument and stores its variables within
+     the corresponding instance variables of the current Profile object.
+     @param pr : Profile which contains the information we wish to copy to the current Profile object
      */
     public Profile(Profile pr){
         this.fname = pr.fname;
@@ -43,8 +45,8 @@ public class Profile implements Comparable<Profile>{
     }
 
     /**
-    Converts the current Profile object to a String.
-    @return String which corresponds to a worded version of the Profile, such as "John Doe 3/20/2003"
+     Converts the current Profile object to a String.
+     @return String which corresponds to a worded version of the Profile, such as "John Doe 3/20/2003"
      */
     @Override
     public String toString(){
@@ -53,9 +55,9 @@ public class Profile implements Comparable<Profile>{
     }
 
     /**
-    Check if a Profile is equal to another Profile object.
-    @param Object obj - must be an instance of a Profile object to be compared against current Profile object
-    @return true if the 2 Profiles are the same, false otherwise
+     Check if a Profile is equal to another Profile object.
+     @param obj - Object which must be an instance of a Profile object to be compared against current Profile object
+     @return true if the 2 Profiles are the same, false otherwise
      */
     @Override
     public boolean equals(Object obj){
@@ -71,16 +73,16 @@ public class Profile implements Comparable<Profile>{
     }
 
     /**
-    Helps to sort Profiles based on last name, first name, and date of birth.
-    @param Profile pr which will be used to compare against current Profile object.
-    @return -1 if the current Profile should take priority over Profile pr, 0 if they are equal, and 1 if pr
-    should take priority in the sorting order.
+     Helps to sort Profiles based on last name, first name, and date of birth.
+     @param pr Profile which will be used to compare against current Profile object.
+     @return -1 if the current Profile should take priority over Profile pr, 0 if they are equal, and 1 if pr
+     should take priority in the sorting order.
      */
     @Override
     public int compareTo(Profile pr) {
         int lastNameCompare = this.lname.compareTo(pr.lname);
         if (lastNameCompare < 0) return -1;
-        
+
         int firstNameCompare = this.fname.compareTo(pr.fname);
         if (lastNameCompare == 0 && firstNameCompare < 0 ) return -1;
 

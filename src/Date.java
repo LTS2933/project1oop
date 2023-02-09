@@ -1,3 +1,4 @@
+package src;
 import java.util.Calendar;
 
 /**
@@ -18,7 +19,7 @@ public class Date implements Comparable<Date>{
     /**
      Constructor that initiates a new Date object with today's date (year
      month and day) using the Calendar class
-    */
+     */
     public Date(){
         Calendar calendar = Calendar.getInstance();
 
@@ -33,7 +34,7 @@ public class Date implements Comparable<Date>{
 
     /**
      Overloaded constructor. Instantiates new Date object based on date passed.
-     @param dateParse - String formatted like "2/24/2003", instantiates a Date object from this String.
+     @param string - String formatted like "2/24/2003", instantiates a Date object from this String.
      */
     public Date(String string){
         String [] array = string.split("/");
@@ -43,33 +44,33 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-    Getter method, returns the year of the current object as an int type.
-    @return year of current Date object
+     Getter method, returns the year of the current object as an int type.
+     @return year of current Date object
      */
     public int getYear(){
         return this.year;
     }
 
     /**
-    Getter method, returns the month of the current object as an int, with January indexed as 0.
-    @return month of current Date object as an int type
+     Getter method, returns the month of the current object as an int, with January indexed as 0.
+     @return month of current Date object as an int type
      */
     public int getMonth(){
         return this.month;
     }
 
     /**
-    Getter method, returns the day of the current object as an int.
-    @return day of current Date object as an int type.
+     Getter method, returns the day of the current object as an int.
+     @return day of current Date object as an int type.
      */
     public int getDay(){
         return this.day;
     }
 
     /**
-    Checks if two dates are equivalent.
-    @param Object to be compared with current Date object.
-    @return true if the 2 dates are exactly the same (day, month, year), false otherwise.
+     Checks if two dates are equivalent.
+     @param obj to be compared with current Date object.
+     @return true if the 2 dates are exactly the same (day, month, year), false otherwise.
      */
     @Override
     public boolean equals(Object obj){
@@ -80,26 +81,26 @@ public class Date implements Comparable<Date>{
         return compare.getDay() == this.day && compare.getMonth() == this.month && compare.getYear() == this.year;
     }
 
-    /** 
-    Compares the current Date object with another Date object passed as an argument
-    @param Date object to be compared with current Date object
-    @return 1 if the current Date object occurs later in time than the Date object parameter,
-    -1 if the parameters Date object occurs later in time than this Date object,
-    and 0 if the 2 Date objects are the same date.
-    */
+    /**
+     Compares the current Date object with another Date object passed as an argument
+     @param obj : Date object to be compared with current Date object
+     @return 1 if the current Date object occurs later in time than the Date object parameter,
+     -1 if the parameters Date object occurs later in time than this Date object,
+     and 0 if the 2 Date objects are the same date.
+     */
     @Override
     public int compareTo(Date obj){
         if (this.year == obj.year && this.day == obj.day && this.month == obj.month) return 0;
         if (this.year < obj.year) return -1;
         if (this.year <= obj.year && this.month < obj.month) return -1;
         if (this.year <= obj.year && this.month <= obj.month && this.day < obj.day ) return -1;
-        
+
         return 1;
     }
 
     /**
-    Converts the current Date object to a String.
-    @return String, formatted as "1/20/2018" for January 20, 2018, for example.
+     Converts the current Date object to a String.
+     @return String, formatted as "1/20/2018" for January 20, 2018, for example.
      */
     @Override
     public String toString(){
@@ -107,8 +108,8 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-    Compares the current day (through Calendar import package) with whatever Date object is calling the method
-    @return int corresponding to the Date object's age in years.
+     Compares the current day (through Calendar import package) with whatever Date object is calling the method
+     @return int corresponding to the Date object's age in years.
      */
     public int getAge(){
         Date date = new Date();
@@ -127,8 +128,8 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-    Checks whether the current Date object is a valid calendar date
-    @return boolean to confirm/deny whether the Date is a valid calendar date.
+     Checks whether the current Date object is a valid calendar date
+     @return boolean to confirm/deny whether the Date is a valid calendar date.
      */
     public boolean isValid() {
         if ((this.day > 31) || this.month > 12 || this.month < 0 ) {
@@ -136,31 +137,35 @@ public class Date implements Comparable<Date>{
         }
         if ((this.month == 2) || (this.month == 4) || (this.month == 6 ||
                 (this.month == 9) || (this.month == 11))) {
-                    if (this.day > 30) {
-                        return false;
-                    }
-        if (this.month == 2) {
-            if (this.day == 29){
-                if (this.year % QUADRENNIAL ==0){
-                    if (this.year % CENTENNIAL == 0){
-                        if (this.year % QUATERCENTENNIAL == 0){
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    else {
-                        return true;
-                    }
-                }
+            if (this.day > 30) {
                 return false;
             }
-        }
+            if (this.month == 2) {
+                if (this.day == 29){
+                    if (this.year % QUADRENNIAL ==0){
+                        if (this.year % CENTENNIAL == 0){
+                            if (this.year % QUATERCENTENNIAL == 0){
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
         }
         return true;
     }
 
+
+    /**
+     * @param args
+     */
     public static void main (String [] args){
         /* the five invalid dates */
         Date d1 = new Date("2/29/2003");

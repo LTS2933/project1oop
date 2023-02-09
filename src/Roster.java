@@ -1,9 +1,10 @@
+package src;
 /**
- Contains array data structure that contains list of students in the 
+ Contains array data structure that contains list of students in the
  Roster. Grows automatically in increments of 4 if the array is full
  and contains methods that interact with the list of students.
- @author: Christian Osma, Liam Smith
-*/
+ @author Christian Osma, Liam Smith
+ */
 public class Roster {
     private static final int NOT_FOUND = -1;
 
@@ -12,20 +13,20 @@ public class Roster {
 
     /**
      Initializes student roster to an array of size 4 and current
-     size of 0. 
-    */
+     size of 0.
+     */
     public Roster(){
         this.roster = new Student[4];
         this.size = 0;
     }
 
     /**
-     This method loops through the list of students and looks for the 
-     specific student in the params. Returns index or -1 if the 
+     This method loops through the list of students and looks for the
+     specific student in the params. Returns index or -1 if the
      student is not found.
      @param student : student to be found in the roster
      @return index of the student in the array of -1 if not found
-    */
+     */
     private int find(Student student){
         for (int i = 0; i<this.size; i++){
             if (student.equals(roster[i])) return i;
@@ -36,7 +37,7 @@ public class Roster {
     /**
      Creates a new array that contains 4 more elements than
      the current list and copies the students into the new array.
-    */
+     */
     private void grow(){
         Student [] newRoster = new Student[roster.length+4];
         for (int i = 0; i<this.size; i++){
@@ -50,7 +51,7 @@ public class Roster {
      to the roster.
      @param student : student to be added to the roster
      @return true if the student has been added
-    */
+     */
     public boolean add (Student student){
         if (this.size == roster.length) grow();
         this.roster[this.size] = student;
@@ -63,7 +64,7 @@ public class Roster {
      if it has succeeded. Returns false if the student was not found.
      @param student : student to be removed from the roster
      @return true if the student has been removed
-    */
+     */
     public boolean remove (Student student){
         int indexOfStudent = find(student);
         if (indexOfStudent == -1) return false;
@@ -81,7 +82,7 @@ public class Roster {
      and false otherwise. Calls the find() method to find the student.
      @param student : student to be found in the roster
      @return true if the student is found in the roster
-    */
+     */
     public boolean contains (Student student){
         int index = find(student);
         if (index == -1) return false;
@@ -89,9 +90,9 @@ public class Roster {
     }
 
     /**
-     Prints the roster in standard output sorted by the student's 
+     Prints the roster in standard output sorted by the student's
      Profile (last name, first name, and date of birth).
-    */
+     */
     public void print(){
         if (this.size == 0){
             System.out.println("Student roster is empty!");
@@ -115,12 +116,12 @@ public class Roster {
             System.out.println(this.roster[i].toString());
         }
         System.out.println("* end of roster **");
-        
+
     }
 
     /**
      Prints roster to standard output sorted by school, major.
-    */
+     */
     public void printBySchoolMajor(){
         if (this.size == 0){
             System.out.println("Student roster is empty!");
@@ -147,8 +148,8 @@ public class Roster {
     }
 
     /**
-     Prints roster to standard output sorted by standing 
-    */
+     Prints roster to standard output sorted by standing
+     */
     public void printByStanding(){
         if (this.size == 0){
             System.out.println("Student roster is empty!");
@@ -188,12 +189,11 @@ public class Roster {
      Returns a list of students that attend the corresponding
      school passed into the method, sorted by Profile.
      @param string : String representation of the school
-    */
+     @return Student array of students that attend that specific school
+     */
     public Student [] getBySchool(String string){
-        if (this.size == 0){
-            System.out.println("Student roster is empty!");
-            return null;
-        }
+        if (this.size == 0) return null;
+
         int schoolSize = 0;
         String school = string.toUpperCase();
         for (int i = 0; i<this.size; i++){
@@ -222,13 +222,13 @@ public class Roster {
         }
         return array;
     }
-    
+
     /**
-     Changes the inputed Student's major to the Major that was 
+     Changes the inputed Student's major to the Major that was
      also given to the method.
      @param student : the student that wants their major changed
      @param major : the major the student wants to change into
-    */
+     */
     public void changeMajor(Student student, Major major){
         int indexOfStudent = find(student);
         this.roster[indexOfStudent].setMajor(major);
