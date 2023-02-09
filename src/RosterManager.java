@@ -89,8 +89,6 @@ public class RosterManager {
         String stringMajor = st.nextToken();
         Major major = getMajor(stringMajor);
 
-        // valid date
-
         if (major == null){
             System.out.println("Major code invalid: " + stringMajor);
             return;
@@ -117,32 +115,15 @@ public class RosterManager {
         String lastName = st.nextToken();
         String stringDate = st.nextToken();
         Date date = new Date(stringDate);
-
         String requestedMajor = st.nextToken();
         Major major = getMajor(requestedMajor.toUpperCase());
 
-        if (date.isValid() == false){
-            System.out.println("DOB invalid: " + stringDate + " not a valid calendar date!");
-            return;
-        }
-
-        // check if dob is today or in the future
-        if (isBeforeCurrent(date) == false){
-            System.out.println("DOB invalid: " + stringDate + " is today or in the future!");
-            return;
-        }
-
-        // check if student is less than 16
-        if (date.getAge() < 16){
-            System.out.println("DOB invalid: " + stringDate + " younger than 16 years old.");
-            return;
-        }
-
+        boolean validDate = validDate(date, stringDate);
+        if (validDate == false) return;
         if (major == null){
             System.out.println("Major code invalid: " + requestedMajor);
             return;
         }
-
         int credits = 0;
         try {
             credits = Integer.parseInt(st.nextToken());
@@ -154,16 +135,35 @@ public class RosterManager {
             System.out.println("Credits completed invalid: cannot be negative!");
             return;
         }
-
         Student student = new Student(new Profile(firstName, lastName, date), major, credits);
         if (this.roster.contains(student) == true){
             System.out.println(firstName + " " + lastName + " " + stringDate + " is already in the roster.");
             return;
         }
-
         this.roster.add(student);
         System.out.println(firstName + " " + lastName + " " + stringDate + " added to the roster.");
+    }
 
+    /**
+     * Helper method that checks if the date is a valid of date of birth.
+     * @param date Date object which represents the date to be checked
+     * @param stringDate date inputted by the user, which is used to print error to standard output
+     * @return true if the date is a valid date of birth and false otherwise
+     */
+    private boolean validDate(Date date, String stringDate){
+        if (date.isValid() == false){
+            System.out.println("DOB invalid: " + stringDate + " not a valid calendar date!");
+            return false;
+        }
+        if (isBeforeCurrent(date) == false){
+            System.out.println("DOB invalid: " + stringDate + " is today or in the future!");
+            return false;
+        }
+        if (date.getAge() < 16){
+            System.out.println("DOB invalid: " + stringDate + " younger than 16 years old.");
+            return false;
+        }
+        return true;
     }
 
     /**
