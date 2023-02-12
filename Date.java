@@ -34,10 +34,10 @@ public class Date implements Comparable<Date>{
     }
     /**
     Overloaded constructor. Instantiates new Date object.
-    @param dateParse - String formatted like "2/24/2003", instantiates a Date object from this String.
+    @param date - String formatted like "2/24/2003", instantiates a Date object from this String.
      */
-    public Date(String dateParse){
-        String [] array = dateParse.split("/");
+    public Date(String date){
+        String [] array = date.split("/");
         this.month = Integer.parseInt(array[0])-1;
         this.day = Integer.parseInt(array[1]);
         this.year = Integer.parseInt(array[2]);
@@ -93,37 +93,37 @@ public class Date implements Comparable<Date>{
     Checks whether the current Date object is a valid calendar date
     @return String to confirm/deny whether the Date is a valid calendar date.
      */
-    public String isValid() {
+    public boolean isValid() {
         if ((this.getDay() > 31) || this.getMonth() > 11 || this.getMonth() < 0 || this.getDay() < 1 || this.getYear() < 1900) {
-            return "DOB invalid: " + this.toString() + " not a valid calendar date!";
+            return false;
         }
         if ((this.getMonth() == Calendar.APRIL) || (this.getMonth() == Calendar.JUNE ||
                 (this.getMonth() == Calendar.SEPTEMBER) || (this.getMonth() == Calendar.NOVEMBER))) {
             if (this.getDay() > 30) {
-                return "DOB invalid: " + this.toString() + " not a valid calendar date!";
+                return false;
             }
         }
         if (this.getMonth() == Calendar.FEBRUARY) {
             if (this.getDay() > 29) {
-                return "DOB invalid: " + this.toString() + " not a valid calendar date!";
+                return false;
             }
             if (this.getDay() == 29) {
                 if (this.getYear() % QUADRENNIAL == 0) {
                     if (this.getYear() % CENTENNIAL == 0) {
                         if (this.getYear() % QUATERCENTENNIAL == 0) {
-                            return this.toString() + " added to the roster.";
+                            return true;
                         } else {
-                            return "DOB invalid: " + this.toString() + " not a valid calendar date!";
+                            return false;
                         }
                     } else {
-                        return this.toString() + " added to the roster.";
+                        return true;
                     }
                 } else {
-                    return "DOB invalid: " + this.toString() + " not a valid calendar date!";
+                    return false;
                 }
             }
         }
-        return this.toString() + " added to the roster.";
+        return true;
     }
     /**
     Compares the current day (through Calendar import package) with whatever Date object is calling the method
@@ -202,8 +202,8 @@ public class Date implements Comparable<Date>{
         System.out.println(d3.isValid());
         System.out.println(d4.isValid());
         System.out.println(d5.isValid());
-        System.out.println("John Doe " + d6.isValid());
-        System.out.println("John Doe " + d7.isValid());
+        System.out.println(d6.isValid());
+        System.out.println(d7.isValid());
 
     }
 }
