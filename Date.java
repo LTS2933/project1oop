@@ -38,7 +38,7 @@ public class Date implements Comparable<Date>{
      */
     public Date(String date){
         String [] array = date.split("/");
-        this.month = Integer.parseInt(array[0])-1;
+        this.month = Integer.parseInt(array[0]);
         this.day = Integer.parseInt(array[1]);
         this.year = Integer.parseInt(array[2]);
     }
@@ -94,16 +94,16 @@ public class Date implements Comparable<Date>{
     @return String to confirm/deny whether the Date is a valid calendar date.
      */
     public boolean isValid() {
-        if ((this.getDay() > 31) || this.getMonth() > 11 || this.getMonth() < 0 || this.getDay() < 1 || this.getYear() < 1900) {
+        if ((this.getDay() > 31) || this.getMonth() > 12 || this.getMonth() < 1 || this.getDay() < 1 || this.getYear() < 1900) {
             return false;
         }
-        if ((this.getMonth() == Calendar.APRIL) || (this.getMonth() == Calendar.JUNE ||
-                (this.getMonth() == Calendar.SEPTEMBER) || (this.getMonth() == Calendar.NOVEMBER))) {
+        if ((this.getMonth() == (Calendar.APRIL +1)) || (this.getMonth() == (Calendar.JUNE +1)) ||
+                (this.getMonth() == (Calendar.SEPTEMBER +1)) || (this.getMonth() == (Calendar.NOVEMBER +1))) {
             if (this.getDay() > 30) {
                 return false;
             }
         }
-        if (this.getMonth() == Calendar.FEBRUARY) {
+        if (this.getMonth() == (Calendar.FEBRUARY+1)) {
             if (this.getDay() > 29) {
                 return false;
             }
@@ -134,7 +134,7 @@ public class Date implements Comparable<Date>{
         Calendar calendar = Calendar.getInstance();
 
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH + 1);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
@@ -186,16 +186,16 @@ public class Date implements Comparable<Date>{
      */
     @Override
     public String toString(){
-        return this.getMonth()+1 + "/" + this.getDay() + "/" + this.getYear();
+        return this.getMonth() + "/" + this.getDay() + "/" + this.getYear();
     }
     public static void main (String [] args){
-        Date d1 = new Date(29, 1, 2003);
-        Date d2 = new Date(31, -2, 2003);
-        Date d3 = new Date(31, 12, 2003);
-        Date d4 = new Date(32, 2, 2007);
-        Date d5 = new Date(31, 3, 2005);
-        Date d6 = new Date(3, 3, 2003);
-        Date d7 = new Date(20, 0, 2003);
+        Date d1 = new Date(29, 2, 2003);
+        Date d2 = new Date(31, 4, 2003);
+        Date d3 = new Date(31, 13, 2003);
+        Date d4 = new Date(32, 3, 2003);
+        Date d5 = new Date(31, -1, 2003);
+        Date d6 = new Date(3, 4, 2003);
+        Date d7 = new Date(20, 1, 2003);
 
         System.out.println(d1.isValid());
         System.out.println(d2.isValid());
