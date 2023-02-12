@@ -167,15 +167,15 @@ public class Date implements Comparable<Date>{
      * @param args
      */
     public static void main (String [] args){
-        /* the five invalid dates */
+        // five invalid dates
         Date d1 = new Date("2/29/2003");
         Date d2 = new Date("4/31/2003");
         Date d3 = new Date("13/31/2003");
         Date d4 = new Date("3/32/2003");
         Date d5 = new Date("-1/31/2003");
-        /* the five invalid dates */
-        Date d6 = new Date("6/5/2021");
-        Date d7 = new Date("2/8/2003");
+        // five invalid dates
+        Date d6 = new Date("4/6/2003");
+        Date d7 = new Date("1/20/2003");
 
         System.out.println(d1.isValid());
         System.out.println(d2.isValid());
