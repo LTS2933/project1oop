@@ -1,11 +1,11 @@
+import java.util.Calendar;
+
 /**
  * This class implements the Comparable Interface and runs various methods on Date objects.
  * Some of these methods include getAge(), which returns an integer value of the current object's age in years.
  *
  * @author Christian Osma, Liam Smith
  **/
-
-import java.util.Calendar;
 public class Date implements Comparable<Date>{
     private int year;
     private int month;
@@ -16,19 +16,23 @@ public class Date implements Comparable<Date>{
     public static final int QUATERCENTENNIAL = 400;
 
 
-    /* Default constructor, takes no arguments and instantiates a date object.
+    /**
+    Default constructor, takes no arguments and instantiates a date object.
     */
     public Date(){
     }
-    /*Overloaded constructor.
-    @param day - the day of the Date object as an int type, month - the day of the Date object as an int type, year - the year of the Date object as an int type
-    * */
+    /**
+     * Overloaded constructor.
+    @param day - the day of the Date object as an int type
+    @param month - the day of the Date object as an int type
+    @param year - the year of the Date object as an int type
+     */
     public Date(int day, int month, int year){
         this.year = year;
         this.month = month;
         this.day = day;
     }
-    /*
+    /**
     Overloaded constructor. Instantiates new Date object.
     @param dateParse - String formatted like "2/24/2003", instantiates a Date object from this String.
      */
@@ -38,10 +42,10 @@ public class Date implements Comparable<Date>{
         this.day = Integer.parseInt(array[1]);
         this.year = Integer.parseInt(array[2]);
     }
-    /*
+    /**
     Copy constructor. Copies the information of the argument and stores its variables within
     the corresponding instance variables of the current Date object.
-    @param Date d which contains the information we wish to copy to the current Date object.
+    @param d - Date object which contains the information we wish to copy to the current Date object.
     */
     public Date(Date d){
         this.year = d.year;
@@ -49,15 +53,15 @@ public class Date implements Comparable<Date>{
         this.day = d.day;
     }
 
-    /*
+    /**
     Getter method, returns the year of the current object as an int type.
-    @return year of current Date object
+    @return year of current Date object as an int
      */
     public int getYear(){
         return this.year;
     }
 
-    /*
+    /**
     Getter method, returns the month of the current object as an int, with January indexed as 0.
     @return month of current Date object as an int type
      */
@@ -65,16 +69,16 @@ public class Date implements Comparable<Date>{
         return this.month;
     }
 
-    /*
+    /**
     Getter method, returns the day of the current object as an int.
-    @return day of current Date object as an int type.
+    @return day of current Date object as an int type
      */
     public int getDay(){
         return this.day;
     }
-    /*
+    /**
     Compares 2 dates
-    @param Object to be compared with current Date object.
+    @param obj - should be an instance of a Date object to be compared with current Date object.
     @return true if the 2 dates are exactly the same (day, month, year), false otherwise.
      */
     @Override
@@ -85,45 +89,45 @@ public class Date implements Comparable<Date>{
         }
         return compare.getDay() == this.getDay() && compare.getMonth() == this.getMonth() && compare.getYear() == this.getYear();
     }
-    /*
+    /**
     Checks whether the current Date object is a valid calendar date
     @return String to confirm/deny whether the Date is a valid calendar date.
      */
     public String isValid() {
-        if ((this.getDay() > 31) || this.getMonth() > 12 || this.getMonth() < 0 || this.getDay() < 1 || this.getYear() < 1900) {
-            return this.toString() + " is not a valid calendar date.";
+        if ((this.getDay() > 31) || this.getMonth() > 11 || this.getMonth() < 0 || this.getDay() < 1 || this.getYear() < 1900) {
+            return "DOB invalid: " + this.toString() + " not a valid calendar date!";
         }
         if ((this.getMonth() == Calendar.APRIL) || (this.getMonth() == Calendar.JUNE ||
                 (this.getMonth() == Calendar.SEPTEMBER) || (this.getMonth() == Calendar.NOVEMBER))) {
             if (this.getDay() > 30) {
-                return this.toString() + " is not a valid calendar date.";
+                return "DOB invalid: " + this.toString() + " not a valid calendar date!";
             }
         }
         if (this.getMonth() == Calendar.FEBRUARY) {
             if (this.getDay() > 29) {
-                return this.toString() + " is not a valid calendar date.";
+                return "DOB invalid: " + this.toString() + " not a valid calendar date!";
             }
             if (this.getDay() == 29) {
                 if (this.getYear() % QUADRENNIAL == 0) {
                     if (this.getYear() % CENTENNIAL == 0) {
                         if (this.getYear() % QUATERCENTENNIAL == 0) {
-                            return this.toString() + " is a valid calendar date.";
+                            return this.toString() + " added to the roster.";
                         } else {
-                            return this.toString() + " is not a valid calendar date.";
+                            return "DOB invalid: " + this.toString() + " not a valid calendar date!";
                         }
                     } else {
-                        return this.toString() + " is a valid calendar date.";
+                        return this.toString() + " added to the roster.";
                     }
                 } else {
-                    return this.toString() + " is not a valid calendar date.";
+                    return "DOB invalid: " + this.toString() + " not a valid calendar date!";
                 }
             }
         }
-        return this.toString() + " is a valid calendar date.";
+        return this.toString() + " added to the roster.";
     }
-    /*
+    /**
     Compares the current day (through Calendar import package) with whatever Date object is calling the method
-    @return int corresponding to the Date object's age in years.
+    @return the Date object's age in years as an int type
      */
     public int getAge(){
 
@@ -141,8 +145,9 @@ public class Date implements Comparable<Date>{
         }
         return age;
     }
-    /*Compares the current Date object with another Date object passed as an argument
-    @param Date object to be compared with current Date object
+    /**
+     * Compares the current Date object with another Date object passed as an argument
+    @param d - Date object to be compared with current Date object
     @return 1 if the current Date object occurs later in time than the Date object parameter,
     -1 if the parameters Date object occurs later in time than this Date object,
     and 0 if the 2 Date objects are the same date.
@@ -175,9 +180,9 @@ public class Date implements Comparable<Date>{
             }
         }
     }
-    /*
+    /**
     Converts the current Date object to a String.
-    @return String, formatted as "1/20/2018" for January 20, 2018, for example.
+    @return String formatted as "1/20/2018" for January 20, 2018, for example.
      */
     @Override
     public String toString(){
@@ -189,16 +194,16 @@ public class Date implements Comparable<Date>{
         Date d3 = new Date(31, 12, 2003);
         Date d4 = new Date(32, 2, 2007);
         Date d5 = new Date(31, 3, 2005);
-        Date d6 = new Date(5, 6, 2001);
-        Date d7 = new Date(8, 2, 2003);
+        Date d6 = new Date(3, 3, 2003);
+        Date d7 = new Date(20, 0, 2003);
 
         System.out.println(d1.isValid());
         System.out.println(d2.isValid());
         System.out.println(d3.isValid());
         System.out.println(d4.isValid());
         System.out.println(d5.isValid());
-        System.out.println(d6.isValid());
-        System.out.println(d7.isValid());
+        System.out.println("John Doe " + d6.isValid());
+        System.out.println("John Doe " + d7.isValid());
 
     }
 }
