@@ -14,6 +14,14 @@ public class Date implements Comparable<Date>{
     private static final int QUADRENNIAL = 4;
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
+    public static final int LONGER_DAYS_IN_MONTH = 31;
+    public static final int SMALLER_DAYS_IN_MONTH = 30;
+    public static final int NUM_MONTHS = 12;
+    public static final int DAYS_IN_FEBRUARY_LEAPYEAR = 29;
+    public static final int SMALLEST_MONTH_INDEX = 1;
+    public static final int SMALLEST_DAY_INDEX = 1;
+    public static final int LOWEST_VALID_YEAR = 1900;
+
 
 
     /**
@@ -94,20 +102,20 @@ public class Date implements Comparable<Date>{
     @return String to confirm/deny whether the Date is a valid calendar date.
      */
     public boolean isValid() {
-        if ((this.getDay() > 31) || this.getMonth() > 12 || this.getMonth() < 1 || this.getDay() < 1 || this.getYear() < 1900) {
+        if ((this.getDay() > LONGER_DAYS_IN_MONTH) || this.getMonth() > NUM_MONTHS || this.getMonth() < SMALLEST_MONTH_INDEX || this.getDay() < SMALLEST_DAY_INDEX || this.getYear() < LOWEST_VALID_YEAR) {
             return false;
         }
         if ((this.getMonth() == (Calendar.APRIL +1)) || (this.getMonth() == (Calendar.JUNE +1)) ||
                 (this.getMonth() == (Calendar.SEPTEMBER +1)) || (this.getMonth() == (Calendar.NOVEMBER +1))) {
-            if (this.getDay() > 30) {
+            if (this.getDay() > SMALLER_DAYS_IN_MONTH) {
                 return false;
             }
         }
         if (this.getMonth() == (Calendar.FEBRUARY+1)) {
-            if (this.getDay() > 29) {
+            if (this.getDay() > DAYS_IN_FEBRUARY_LEAPYEAR) {
                 return false;
             }
-            if (this.getDay() == 29) {
+            if (this.getDay() == DAYS_IN_FEBRUARY_LEAPYEAR) {
                 if (this.getYear() % QUADRENNIAL == 0) {
                     if (this.getYear() % CENTENNIAL == 0) {
                         if (this.getYear() % QUATERCENTENNIAL == 0) {
