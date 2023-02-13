@@ -120,7 +120,8 @@ public class Student implements Comparable<Student>{
 
 
     /**
-     * @param args
+     * Testbed main for testing compareTo() method of the Student class
+     * @param args array of Strings
      */
     public static void main (String [] args){
         Date d1 = new Date("3/3/2003");

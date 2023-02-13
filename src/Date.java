@@ -164,7 +164,8 @@ public class Date implements Comparable<Date>{
 
 
     /**
-     * @param args
+     * Testbed main for testing the isValid() method of Date class
+     * @param args array of Strings
      */
     public static void main (String [] args){
         // five invalid dates

@@ -15,8 +15,10 @@ public enum Major {
     private final String majorCode;
     private final String schoolName;
 
-    /*
+    /**
     Constructor method. Does not instantiate anything new, but is used to assign a Major to different objects.
+    @param majorCode code of the specific major
+    @param schoolName school that the major belongs to
      */
     Major(String majorCode, String schoolName){
         this.majorCode = majorCode;
